@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Animation</title>
+    <style>
+        canvas {
+            background-color: #f0f0f0;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="500" height="400"></canvas>
+
+<script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let x = 50;  // Initial x position of the circle
+    let y = canvas.height / 2;  // Vertical center of the canvas
+    let dx = 2;  // Change in x (speed)
+
+    function drawCircle() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clear the canvas
+        ctx.beginPath();
+        ctx.arc(x, y, 30, 0, Math.PI * 2, false);  // Draw the circle
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+
+        x += dx;  // Move the circle
+        if (x + 30 > canvas.width || x - 30 < 0) {
+            dx = -dx;  // Reverse direction if the circle hits the edge
+        }
+    }
+
+    function animate() {
+        drawCircle();
+        requestAnimationFrame(animate);  // Recursively calls itself to create animation
+    }
+
+    animate();  // Start the animation
+</script>
+
+</body>
+</html>
